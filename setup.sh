@@ -2,9 +2,9 @@
 
 prefix=$1
 user=`basename $prefix`
-echo "------> Installing For user "$user
 HOME_DIR=$prefix/yarn
-source .bashrc
+echo "------> Installing For user $user into $prefix"
+source $HOME/.bashrc
 mkdir -p $HOME_DIR/yarn_data/hdfs/namenode
 mkdir -p $HOME_DIR/yarn_data/hdfs/datanode
 
@@ -48,6 +48,7 @@ cp -rf conf/yarn/core-site.xml $YARN_HOME_DIR/etc/hadoop/core-site.xml
 cp -rf conf/yarn/mapred-site.xml $YARN_HOME_DIR/etc/hadoop/mapred-site.xml
 cp -rf conf/yarn/yarn-site.xml $YARN_HOME_DIR/etc/hadoop/yarn-site.xml
 awk '{gsub("hadoop", "'${1}'", $0); print}' > $YARN_HOME_DIR/etc/hadoop/hdfs-site.xml < conf/yarn/hdfs-site.xml
+
 mkdir $YARN_HOME_DIR/input
 cp -rf file $YARN_HOME_DIR/input/
 cp conf/stop.sh $YARN_HOME_DIR/

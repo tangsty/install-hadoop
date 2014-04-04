@@ -29,7 +29,7 @@
 
    <name>dfs.namenode.name.dir</name>
 
-   <value>file:/home/hadoop/yarn/yarn_data/hdfs/namenode</value>
+   <value>file:hadoop/yarn/yarn_data/hdfs/namenode</value>
 
  </property>
 
@@ -37,7 +37,7 @@
 
    <name>dfs.datanode.data.dir</name>
 
-   <value>file:/home/hadoop/yarn/yarn_data/hdfs/datanode</value>
+   <value>file:hadoop/yarn/yarn_data/hdfs/datanode</value>
 
  </property>
 
