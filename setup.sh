@@ -1,9 +1,12 @@
 #!/bin/sh
-echo "------> Installing For user "$1
-HOME_DIR=/home/$1/yarn
+
+prefix=$1
+user=`basename $prefix`
+echo "------> Installing For user "$user
+HOME_DIR=$prefix/yarn
 source .bashrc
-mkdir -p $HOME/yarn/yarn_data/hdfs/namenode
-mkdir -p $HOME/yarn/yarn_data/hdfs/datanode
+mkdir -p $HOME_DIR/yarn_data/hdfs/namenode
+mkdir -p $HOME_DIR/yarn_data/hdfs/datanode
 
 echo "Select Package"
 echo "1.hadoop 2.2.0 >"
@@ -12,10 +15,10 @@ echo -n "select the option 1 or 2 : "
 read options
 if [ $options -eq 1 ]; then
     echo "------> Downloading hadoop 2.2.0..........."
-	YARN_HOME_DIR=/home/$1/yarn/hadoop-2.2.0
-	if [ ! -f hadoop-2.3.0.tar.gz ]; then
+	YARN_HOME_DIR=$HOME_DIR/hadoop-2.2.0
+	if [ ! -f hadoop-2.2.0.tar.gz ]; then
 	    echo "Downloading File....!"
-	    wget -c http://apache.mirrors.hoobly.com/hadoop/common/stable2/hadoop-2.2.0.tar.gz
+	    wget -c http://mirrors.cnnic.cn/apache/hadoop/common/stable2/hadoop-2.2.0.tar.gz
 	else
 	    echo "Using local File..."
 	fi
@@ -25,10 +28,10 @@ if [ $options -eq 1 ]; then
 elif [ $options -eq 2 ]
 then
     echo "------> Downloading Hadoop 2.3.0..........."
-	YARN_HOME_DIR=/home/$1/yarn/hadoop-2.3.0
+	YARN_HOME_DIR=$HOME_DIR/hadoop-2.3.0
     if [ ! -f hadoop-2.3.0.tar.gz ]; then
         echo "Downloading File....!"
-        wget -c http://apache.mirrors.pair.com/hadoop/common/hadoop-2.3.0/hadoop-2.3.0.tar.gz
+        wget -c http://mirrors.cnnic.cn/apache/hadoop/common/hadoop-2.3.0/hadoop-2.3.0.tar.gz
     else
         echo "Using local File..."
     fi
@@ -59,7 +62,7 @@ sbin/yarn-daemon.sh start resourcemanager
 sbin/yarn-daemon.sh start nodemanager
 sbin/mr-jobhistory-daemon.sh start historyserver
 
-echo "------> Verifying Installation For user "$1
+echo "------> Verifying Installation For user "$user
 jps
 
 echo "---------> Successfully Installed Hadoop on your machine <--------------"
